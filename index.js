@@ -7,6 +7,9 @@ function addNewDrink() {
     let allBeverages = document.querySelectorAll('.beverage');
     let toCloneElement = allBeverages[0];
     let newElement = toCloneElement.cloneNode(true);
+    for (let radio of newElement.querySelectorAll("input[type=radio]")) {
+        radio.name = "milk" + clicksCounter;
+    }
     allBeverages[allBeverages.length - 1].after(newElement);
     clicksCounter++;
     newElement.querySelector('.beverage-count').textContent = `Напиток №${clicksCounter}`;
@@ -46,6 +49,7 @@ document.querySelector('.submit-button').addEventListener('click',function(e){
 
     document.querySelector('.modalContent').appendChild(textNode);
     e.preventDefault();
+    updateModalTable();
     modal.classList.add('modal_active');
 });
 
@@ -54,3 +58,45 @@ document.querySelector('.modalCloseButton').addEventListener('click', function(e
     modal.classList.remove('modal_active');
     location.reload();
 })
+
+const dict = {
+    'espresso': 'Эспрессо',
+    'capuccino': 'Капучино',
+    'cacao': 'Какао',
+    'usual' : 'Обычное',
+    'no-fat' : 'Обезжиренное',
+    'soy' : 'Соевое',
+    'coconut' : 'Кокосовое',
+}
+
+function updateModalTable() {
+    const beverages = [];
+    const fields = document.querySelectorAll('.beverage');
+    console.log(fields);
+    fields.forEach((field, index) => {
+        const beverageName = field.querySelector('select').value;
+        const milkType = field.querySelector('input[type="radio"]:checked').value;
+        const extras = [];
+        field.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+            extras.push(checkbox.nextElementSibling.textContent);
+        });
+        beverages.push({
+            beverage: dict[beverageName],
+            milk: dict[milkType],
+            extras: extras.join(', ')
+        });
+    });
+
+    const modalTableBody = document.querySelector('.modal-table tbody');
+    modalTableBody.innerHTML = '';
+    console.log(beverages);
+    beverages.forEach(beverage => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${beverage.beverage}</td>
+            <td>${beverage.milk}</td>
+            <td>${beverage.extras}</td>
+        `;
+        modalTableBody.appendChild(row);
+    });
+}
