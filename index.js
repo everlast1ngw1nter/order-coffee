@@ -25,12 +25,32 @@ function addNewDrink() {
 
 document.querySelector('.submit-button').addEventListener('click',function(e){
     let modal = document.getElementById('modal');
-    e.preventDefault();;
+    // modal.querySelector('p')
+    //     .textContent = `${getDrinksCountString()}`
+    e.preventDefault();
+    modal.classList.add('modal_active');
+});
+
+document.querySelector('.submit-button').addEventListener('click',function(e){
+    let modal = document.getElementById('modal');
+    let textNode = document.createTextNode(`Вы заказали ${clicksCounter} напитков`);
+    if (clicksCounter % 10 === 1 && clicksCounter !== 11){
+        textNode = document.createTextNode(`Вы заказали ${clicksCounter} напиток`);
+    }
+    else if ((clicksCounter % 10 === 2 || clicksCounter % 10 === 3 ||clicksCounter % 10 === 4) && clicksCounter !== 12 && clicksCounter !== 13 && clicksCounter !== 14 ){
+        textNode = document.createTextNode(`Вы заказали ${clicksCounter} напитка`);
+    }
+    else{
+        textNode = document.createTextNode(`Вы заказали ${clicksCounter} напитков`);
+    }
+
+    document.querySelector('.modalContent').appendChild(textNode);
+    e.preventDefault();
     modal.classList.add('modal_active');
 });
 
 document.querySelector('.modalCloseButton').addEventListener('click', function(e){
     let modal = document.getElementById('modal');
     modal.classList.remove('modal_active');
-
+    location.reload();
 })
