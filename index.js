@@ -57,7 +57,6 @@ document.querySelector('.submit-button').addEventListener('click',function(e){
         textNode = document.createTextNode(`Вы заказали ${clicksCounter} напитков`);
     }
 
-    // document.querySelector('.modalContent').appendChild(textNode);
     let modalTitle = document.querySelector('.modalTitle');
     modalTitle.parentNode.insertBefore(textNode, modalTitle.nextSibling);
     e.preventDefault();
@@ -124,4 +123,5 @@ document.querySelector('.submit-modal-button').addEventListener('click', functio
         let modal = document.getElementById('modal');
         modal.classList.remove('modal_active');
     }
+    location.reload()
 });
