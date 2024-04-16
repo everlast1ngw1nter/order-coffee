@@ -57,7 +57,9 @@ document.querySelector('.submit-button').addEventListener('click',function(e){
         textNode = document.createTextNode(`Вы заказали ${clicksCounter} напитков`);
     }
 
-    document.querySelector('.modalContent').appendChild(textNode);
+    // document.querySelector('.modalContent').appendChild(textNode);
+    let modalTitle = document.querySelector('.modalTitle');
+    modalTitle.parentNode.insertBefore(textNode, modalTitle.nextSibling);
     e.preventDefault();
     updateModalTable();
     modal.classList.add('modal_active');
@@ -110,3 +112,16 @@ function updateModalTable() {
         modalTableBody.appendChild(row);
     });
 }
+document.querySelector('.submit-modal-button').addEventListener('click', function() {
+    let orderTimeInput = document.getElementById('order-time');
+    let orderTime = orderTimeInput.value;
+    let currentTime = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+    if (orderTime < currentTime) {
+        orderTimeInput.style.borderColor = 'red';
+        alert("Мы не умеем перемещаться во времени. Выберите время позже, чем текущее.");
+    } else {
+        let modal = document.getElementById('modal');
+        modal.classList.remove('modal_active');
+    }
+});
