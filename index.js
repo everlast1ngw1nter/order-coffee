@@ -1,3 +1,19 @@
+let newElement = document.querySelectorAll('.beverage')[0];
+let closeButton = document.createElement('input');
+closeButton.type = 'button';
+closeButton.style.float = 'right';
+closeButton.style.backgroundColor = 'red';
+closeButton.value = 'X';
+newElement.firstChild.after(closeButton);
+closeButton.addEventListener('click', (ev) => {
+    if (clicksCounter === 1) {
+        return;
+    }
+    newElement.remove();
+    clicksCounter--;
+});
+
+
 let addButton = document.querySelector('.add-button');
 
 addButton.addEventListener('click', addNewDrink);
@@ -7,7 +23,6 @@ function addNewDrink() {
     let allBeverages = document.querySelectorAll('.beverage');
     let toCloneElement = allBeverages[0];
     let newElement = toCloneElement.cloneNode(true);
-
     newElement.querySelectorAll('input[type="text"]').forEach(input => {
         input.value = '';
     });
@@ -32,6 +47,9 @@ function addNewDrink() {
     closeButton.value = 'X';
     newElement.firstChild.after(closeButton);
     closeButton.addEventListener('click', (ev) => {
+        if (clicksCounter === 1) {
+            return;
+        }
         newElement.remove();
         clicksCounter--;
     });
