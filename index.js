@@ -22,3 +22,15 @@ function addNewDrink() {
         clicksCounter--;
     })
 }
+
+document.querySelector('.submit-button').addEventListener('click',function(e){
+    let modal = document.getElementById('modal');
+    e.preventDefault();;
+    modal.classList.add('modal_active');
+});
+
+document.querySelector('.modalCloseButton').addEventListener('click', function(e){
+    let modal = document.getElementById('modal');
+    modal.classList.remove('modal_active');
+
+})
