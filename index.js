@@ -122,6 +122,6 @@ document.querySelector('.submit-modal-button').addEventListener('click', functio
     } else {
         let modal = document.getElementById('modal');
         modal.classList.remove('modal_active');
+        location.reload()
     }
-    location.reload()
 });
