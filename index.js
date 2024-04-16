@@ -7,6 +7,17 @@ function addNewDrink() {
     let allBeverages = document.querySelectorAll('.beverage');
     let toCloneElement = allBeverages[0];
     let newElement = toCloneElement.cloneNode(true);
+
+    newElement.querySelectorAll('input[type="text"]').forEach(input => {
+        input.value = '';
+    });
+    newElement.querySelectorAll('input[type="radio"]').forEach((radio, index) => {
+        radio.checked = index === 0;
+    });
+    newElement.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
     for (let radio of newElement.querySelectorAll("input[type=radio]")) {
         radio.name = "milk" + clicksCounter;
     }
@@ -23,13 +34,12 @@ function addNewDrink() {
     closeButton.addEventListener('click', (ev) => {
         newElement.remove();
         clicksCounter--;
-    })
+    });
 }
+
 
 document.querySelector('.submit-button').addEventListener('click',function(e){
     let modal = document.getElementById('modal');
-    // modal.querySelector('p')
-    //     .textContent = `${getDrinksCountString()}`
     e.preventDefault();
     modal.classList.add('modal_active');
 });
